@@ -1,0 +1,68 @@
+---
+title: "PCoA"
+execute:
+    echo: true
+    warning: false
+    message: false
+    cache: false
+---
+
+## Objetivo
+
+Vamos a hacer un análisis de coordenadas principales (PCoA) utilizando una matriz de distancias con métrica Bray-Curtis para los datos de las mediciones 2026. Obtendremos varias gráficas personalizadas.
+
+## Base de datos
+
+```{r}
+#| label: load-library
+#| echo: false
+
+library(here)
+library(vegan)
+
+```
+
+```{r}
+
+datos_2026 <- read.csv(here("data", "datos_multivariada.csv"),
+                  # Read a CSV file into R as a data frame
+                  dec = ",",
+                  # Decimal separator is comma
+                  sep = ",",
+                  # Values are separated by commas
+                  stringsAsFactors = FALSE)
+                  # Keep text columns as character (not factors)
+
+
+```
+
+## Procedimiento
+
+Instaló los pauetes de R necesario para la visualización de los datos:
+
+```{r}
+#| label: load-packages
+#| eval: false
+#| echo: true
+
+install.packages("here")
+install.packages("vegan")
+
+```
+
+Realizó la carga de las librería de los paquetes para la visualización de los datos:
+
+```{r}
+#| label: load-library
+#| eval: false
+#| echo: true
+
+library(here)
+library(vegan)
+
+```
+
+
+### Obtener la matriz de distancias
+
+Primero, tenemos que quitar las columnas que contienen texto para poder obtener la matriz de distancia y después utilizar la función `cmdscale`. Hay varias métricas de distancia que puedes usar, asegúrate que estás utilizando la mejor métrica para el tipo de datos que tienes. 
