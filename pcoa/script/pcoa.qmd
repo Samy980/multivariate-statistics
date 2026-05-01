@@ -41,7 +41,7 @@ datos_2026 <- read.csv(here("data", "datos_multivariada.csv"),
 Instaló los pauetes de R necesario para la visualización de los datos:
 
 ```{r}
-#| label: load-packages
+#| label: load-packages-show
 #| eval: false
 #| echo: true
 
@@ -53,7 +53,7 @@ install.packages("vegan")
 Realizó la carga de las librería de los paquetes para la visualización de los datos:
 
 ```{r}
-#| label: load-library
+#| label: load-library-show
 #| eval: false
 #| echo: true
 
