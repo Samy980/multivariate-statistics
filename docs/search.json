@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "multivariate-statistics",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "pcoa/script/pcoa.html",
+    "href": "pcoa/script/pcoa.html",
+    "title": "3  PCoA",
+    "section": "",
+    "text": "3.1 Objetivo\nVamos a hacer un análisis de coordenadas principales (PCoA) utilizando una matriz de distancias con métrica Bray-Curtis para los datos de las mediciones 2026. Obtendremos varias gráficas personalizadas.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>PCoA</span>"
+    ]
+  },
+  {
+    "objectID": "pcoa/script/pcoa.html#base-de-datos",
+    "href": "pcoa/script/pcoa.html#base-de-datos",
+    "title": "3  PCoA",
+    "section": "3.2 Base de datos",
+    "text": "3.2 Base de datos\n\ndatos_2026 &lt;- read.csv(here(\"data\", \"datos_multivariada.csv\"),\n                  # Read a CSV file into R as a data frame\n                  dec = \",\",\n                  # Decimal separator is comma\n                  sep = \",\",\n                  # Values are separated by commas\n                  stringsAsFactors = FALSE)\n                  # Keep text columns as character (not factors)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>PCoA</span>"
+    ]
+  },
+  {
+    "objectID": "pcoa/script/pcoa.html#procedimiento",
+    "href": "pcoa/script/pcoa.html#procedimiento",
+    "title": "3  PCoA",
+    "section": "3.3 Procedimiento",
+    "text": "3.3 Procedimiento\nInstaló los pauetes de R necesario para la visualización de los datos:\n\ninstall.packages(\"here\")\ninstall.packages(\"vegan\")\n\nRealizó la carga de las librería de los paquetes para la visualización de los datos:\n\nlibrary(here)\nlibrary(vegan)\n\n\n3.3.1 Obtener la matriz de distancias\nPrimero, tenemos que quitar las columnas que contienen texto para poder obtener la matriz de distancia y después utilizar la función cmdscale. Hay varias métricas de distancia que puedes usar, asegúrate que estás utilizando la mejor métrica para el tipo de datos que tienes.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>PCoA</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
