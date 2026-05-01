@@ -62,7 +62,187 @@ library(vegan)
 
 ```
 
-
 ### Obtener la matriz de distancias
 
 Primero, tenemos que quitar las columnas que contienen texto para poder obtener la matriz de distancia y después utilizar la función `cmdscale`. Hay varias métricas de distancia que puedes usar, asegúrate que estás utilizando la mejor métrica para el tipo de datos que tienes. 
+
+```{r}
+
+datos <- datos_2026 [, 3:16]
+
+dist_datos <- vegdist (datos, method = "bray")
+
+pcoa_datos <- cmdscale (dist_datos, 2)
+
+```
+
+### Hagamos la gráfica
+
+Hay que guardar la información que necesitamos para después usar la función `plot`. Si no queda claro qué estamos guardando en x o en y, puedes imprimir el objeto “pcoa_datos”. También ayuda que busques en la ayuda cómo se utiliza la función `plot`.
+
+```{r}
+
+x <- pcoa_datos [ ,1]
+
+y <- pcoa_datos [ ,2]
+
+plot (x, y, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    main = "data = datos multivariada 2026", 
+    pch = 1)
+```
+
+Existe una observación rara, pero !todo se puede arreglar! Si buscamos en la base de datos nos damos cuenta que esa obseración se encuentra en el renglón 41. Se puede eliminar de muchas formas (recuerda la clase de “Manejando las bases de datos en R”). La forma más sencilla es utilizando los corchetes.
+
+```{r}
+
+datos2 <- datos [-41, ]
+
+```
+
+
+Ahora sí podemos volver a hacer la gráfica sin ese valor.
+
+```{r}
+
+dist_datos1 <- vegdist(datos2, method = "bray")
+
+pcoa_datos1 <- cmdscale(dist_datos1, 2)
+
+x1 <- pcoa_datos1 [ ,1]
+
+y1 <- pcoa_datos1 [ ,2]
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    main = "datos 2026 sin la observación rara", 
+    pch = 1)
+
+```
+
+### Hagamos varias versiones personalizadas de la gráfica
+
+#### Gráfica con colores por sexo
+
+Podemos usar dos colores (uno por sexo) para distinguir aquellas observaciones que fueron tomadas de mujeres o de hombres. Para ésto, necesitamos escribir nuestra propia función, que estará guardada en el objeto **colores_sexo**. Nuestra función utiliza condicionales, básicamente las instrucciones que le estamos dando a R se leen como: “busca a todo lo largo de la columna sexo, si encuentras la palabra mujer utiliza el color rosa, para todo lo demás utiliza el color azul”.
+
+```{r}
+
+datos3 <- datos_2026 [-41,]
+
+etiquetas_sexo <- datos3$sexo
+
+colores_sexo <- function(variable) {
+  if (grepl("mujer", variable)) {
+    "deeppink"
+  } else {
+    "royalblue"
+  }
+}
+
+```
+
+Una vez que escribimos nuestra función, queremos aplicarla a cada elemento que se encuentra en *etiquetas_sexo* y juntar toda la información en un vector con la función `unlist`.
+
+```{r}
+
+etiquetas_colores_sexo <- unlist(lapply(etiquetas_sexo, colores_sexo))
+
+```
+
+Y volvemos a hacer la gráfica con la función `plot` pidiendo que utilice nuestra función para poner los colores.
+
+```{r}
+#| eval: false
+#| echo: true
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    main = "con colores por sexo", 
+    col = etiquetas_colores_sexo)
+
+```
+
+#### Gráfica con el nombre de las personas en lugar de puntos, usando un sólo color
+
+```{r}
+#| eval: false
+#| echo: true
+
+etiquetas_nombres <- datos3$id
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    type = "n", 
+    main = "con nombres") +
+text (x1, y1, 
+    labels = etiquetas_nombres, 
+    cex = 0.8)
+
+```
+
+#### Gráfica con nombres, pero con los dos colores
+
+```{r}
+#| eval: false
+#| echo: true
+
+etiquetas_nombres_colores <- unlist(lapply(datos3$sexo, colores_sexo))
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    type = "n", 
+    main = "con nombres y colores") +
+text (x1, y1, 
+    labels = etiquetas_nombres, 
+    col = etiquetas_nombres_colores, 
+    cex = 0.8)
+
+```
+
+#### Gáfica con leyenda
+
+```{r}
+#| eval: false
+#| echo: true
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    type = "n", 
+    main = "con nombres y colores") +
+text (x1, y1, 
+    labels = etiquetas_nombres, 
+    col = etiquetas_nombres_colores, 
+    cex = 0.8) +
+legend ("bottomright", 
+    legend = c ("mujer", "hombre"), 
+    col = c ("deeppink", "royalblue"), 
+    pch = 1, 
+    cex = 1)
+
+```
+
+
+
+## Resultados
+
+```{r}
+#| echo: false
+
+plot (x1, y1, 
+    xlab = "Coordenada 1", 
+    ylab = "Coordenada 2", 
+    main = "con colores por sexo", 
+    col = etiquetas_colores_sexo)
+
+```
+
+## Probelmas encontrados
+
+## Aprendizaje
